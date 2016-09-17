@@ -20,6 +20,7 @@ class AppBot < BotBase
 
   def state_new_offer_title
     reply "Заголовок: #{message.text}"
+    session_storage.set_next_state
     session_storage.set_offer_attribute :title, message.text
   end
 
