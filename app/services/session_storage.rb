@@ -10,7 +10,7 @@ class SessionStorage
   end
 
   def next_state
-    index STATES.index state
+    index = STATES.index get_state
     STATES[index + 1]
   end
 
