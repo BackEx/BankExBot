@@ -7,6 +7,7 @@ Telegram.token = ENV['TELEGRAM_TOKEN']
 
 class Root < Sinatra::Base
   get '/' do
+    STDERR.puts 'works'
     'It works!'
   end
 end
