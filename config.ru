@@ -6,8 +6,11 @@ require 'telegram'
 Telegram.token = ENV['TELEGRAM_TOKEN']
 
 class Root < Sinatra::Base
-  get '/index.html' do
+  get '/' do
     'It works!'
+  end
+  post '/' do
+    STDERR.puts params
   end
 end
 
@@ -23,5 +26,5 @@ class App < Bot
   end
 end
 
-use Root
-run App.new
+run Root
+# run App.new
