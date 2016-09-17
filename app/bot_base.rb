@@ -49,6 +49,7 @@ class BotBase
   end
 
   def command
+    return nil unless message.text
     first = message.text.split(' ')[0]
     if first[0]=='/'
       first.tr('/','')
