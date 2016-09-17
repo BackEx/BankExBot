@@ -1,6 +1,18 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    equalizer (0.0.11)
+    httpclient (2.8.2.4)
+    ice_nine (0.11.2)
+    multi_json (1.12.1)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -10,7 +22,17 @@ GEM
       tilt (>= 1.3, < 3)
     telegram-webhooks (0.1.1)
       rack (~> 1.6.4)
+    telegrammer (0.8.0)
+      httpclient (~> 2.6)
+      multi_json (~> 1.11)
+      virtus (~> 1.0)
+    thread_safe (0.3.5)
     tilt (2.0.5)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
 
 PLATFORMS
   ruby
@@ -18,6 +40,7 @@ PLATFORMS
 DEPENDENCIES
   sinatra
   telegram-webhooks
+  telegrammer
 
 BUNDLED WITH
    1.12.5
