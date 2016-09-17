@@ -15,7 +15,7 @@ class AppBot < BotBase
   end
 
   def command_offer
-    reply 'Введите заголовок объявления'
+    in_reply 'Введите заголовок объявления'
     session_storage.set_state SessionStorage::STATE_NEW_OFFER_TITLE
   end
 
@@ -36,6 +36,11 @@ class AppBot < BotBase
 
   def state_new_offer_title
     reply "Установлен заголовок: '#{message.text}'. Введите описание."
+    rm = Telegrammer::DataTypes::ReplyKeyboardMarkup.new(
+      keyboard: [['/Опубликовать']],
+      one_time_keyboard: true
+    )
+
     session_storage.set_next_state
     session_storage.set_offer_attribute :title, message.text
   end

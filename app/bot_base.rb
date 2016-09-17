@@ -45,6 +45,14 @@ class BotBase
     client.send_message(chat_id: message.chat.id, text: text || 'no_message')
   end
 
+  def in_reply(text)
+    log "in_reply: #{text}"
+    client.send_message(
+      chat_id: message.chat.id,
+      text: text,
+      reply_markup: Telegrammer::DataTypes::ForceReply.new(force_reply: true)
+    )
+  end
   def log(msg)
     STDERR.puts "LOG [chat_id:#{message.chat.id}]: #{msg}"
   end
