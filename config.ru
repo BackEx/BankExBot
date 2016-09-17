@@ -11,6 +11,12 @@ class Root < Sinatra::Base
     request.body.rewind
     payload = JSON.parse(request.body.read) rescue {}
     STDERR.puts "payload: #{payload}"
+
+    update = Telegrammer::DataTypes::Update.new(
+      update_id: payload[:update_id],
+      message: payload[:message]
+    )
+    STDERR.puts "update: #{update}"
     STDERR.puts "params: #{params}"
     'Ok'
   end
