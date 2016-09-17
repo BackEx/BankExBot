@@ -1,4 +1,4 @@
-require 'monenize'
+require 'monetize'
 require_relative 'bot_base'
 
 class AppBot < BotBase
@@ -16,7 +16,14 @@ class AppBot < BotBase
   end
 
   def command_debug
-    reply session_storage.get_offer.to_s
+    offer = session_storage.get_offer
+    data = {
+      offer: offer,
+      state: session_storage.get_state,
+      next_state: session_storage.next_state,
+      from: message.from.to_h
+    }
+    reply data.to_s
   end
 
   def state_new_offer_title
