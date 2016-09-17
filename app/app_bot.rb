@@ -19,13 +19,28 @@ class AppBot < BotBase
   end
 
   def state_new_offer_title
-    reply "Заголовок: #{message.text}"
+    reply "Установлен заголовок: #{message.text}. Введите описание."
     session_storage.set_next_state
     session_storage.set_offer_attribute :title, message.text
   end
 
-  def state_new_offer_description
-    reply "Описание: #{message.text}"
+  def state_new_offer_desc
+    reply "Установлено описание: #{message.text}. Введите цену."
     session_storage.set_next_state
+    session_storage.set_offer_attribute :description, message.text
+  end
+
+  def state_new_offer_price
+    money = Money.parse message.text
+    reply "Установлена цена: #{money}. Введите теги через запятую"
+    session_storage.set_next_state
+    session_storage.set_offer_attribute :price, money.to_f
+  end
+
+  def state_new_offer_tags
+    tags = message.text.split(',')
+    reply "Теги: #{tags.join(',')}"
+    session_storage.set_next_state
+    session_storage.set_offer_attribute :tags, tags.join(',')
   end
 end

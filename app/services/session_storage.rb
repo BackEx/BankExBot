@@ -1,9 +1,17 @@
 class SessionStorage
   NS = 'sessions:'
 
-  STATE_NEW_OFFER_TITLE = 'new_offer_title'
+  STATE_NEW_OFFER_TITLE       = 'new_offer_title'
   STATE_NEW_OFFER_DESCRIPTION = 'new_offer_desc'
-  STATES = [STATE_NEW_OFFER_TITLE, STATE_NEW_OFFER_DESCRIPTION]
+  STATE_NEW_OFFER_PRICE       = 'new_offer_price'
+  STATE_NEW_OFFER_TAGS        = 'new_offer_tags'
+
+  STATES = [
+    STATE_NEW_OFFER_TITLE,
+    STATE_NEW_OFFER_DESCRIPTION,
+    STATE_NEW_OFFER_PRICE,
+    STATE_NEW_OFFER_TAGS
+  ]
 
   def initialize(chat_id)
     @chat_id = chat_id
