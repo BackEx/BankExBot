@@ -1,7 +1,15 @@
+require 'bundler'
 Bundler.require(:default)
+require 'sinatra/base'
 require 'telegram'
 
 Telegram.token = ENV['TELEGRAM_TOKEN']
+
+class Root < Sinatra::Base
+  get '/' do
+    'It works!'
+  end
+end
 
 class App < Bot
   on :start do |update|
@@ -15,4 +23,5 @@ class App < Bot
   end
 end
 
+use Root
 run App.new
