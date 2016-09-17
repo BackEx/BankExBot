@@ -14,12 +14,9 @@ class Root < Sinatra::Base
     payload = JSON.parse(request.body.read) rescue {}
     STDERR.puts "payload: #{payload}"
 
-    update = Telegrammer::DataTypes::Update.new(
-      update_id: payload[:update_id],
-      message: payload[:message]
-    )
+    update = Telegrammer::DataTypes::Update.new(payload)
 
-    MyBot.send_message(chat_id: update.chat.id, text: "You said: #{update.text}")
+    MyBot.send_message(chat_id: update.message.chat.id, text: "You said: #{update.message.text}")
 
     'Ok'
   end
