@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'telegrammer', github: 'dapi/telegrammer', branch: 'develop'
 gem 'money'
+gem 'monetize'
 gem 'sinatra'
 gem 'virtus'
 gem 'faraday'

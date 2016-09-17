@@ -1,3 +1,4 @@
+require 'monenize'
 require_relative 'bot_base'
 
 class AppBot < BotBase
@@ -31,7 +32,7 @@ class AppBot < BotBase
   end
 
   def state_new_offer_price
-    money = Money.parse message.text
+    money = Monetize.parse message.text
     reply "Установлена цена: #{money}. Введите теги через запятую"
     session_storage.set_next_state
     session_storage.set_offer_attribute :price, money.to_f
