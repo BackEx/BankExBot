@@ -7,6 +7,8 @@ require_relative './app/app_version'
 require_relative './app/models/offer'
 require_relative './app/services/session_storage'
 
+I18n.config.available_locales = :en
+
 class Root < Sinatra::Base
   get '/' do
     STDERR.puts 'works'
