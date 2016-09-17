@@ -6,7 +6,7 @@ require 'telegram'
 Telegram.token = ENV['TELEGRAM_TOKEN']
 
 class Root < Sinatra::Base
-  get '/' do
+  get '/index.html' do
     'It works!'
   end
 end
