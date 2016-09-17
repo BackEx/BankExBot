@@ -2,7 +2,9 @@ require 'bundler'
 Bundler.require(:default)
 require 'json'
 require 'sinatra/base'
-require_relative 'app_bot'
+require_relative './app/app_bot'
+require_relative './app/models/offer'
+require_relative './app/services/session_storage'
 
 class Root < Sinatra::Base
   get '/' do
