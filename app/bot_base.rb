@@ -1,6 +1,11 @@
 class BotBase
   def initialize(update)
-    @message = update.inline_query ? update.inline_query : update.message
+    STDERR.puts update
+
+    @message = update.inline_query if update.inline_query
+    @message = update.edited_message if update.edited_message
+    @message ||= update.message
+    raise "No message in #{update.to_h}" unless @message
   end
 
   def perform
