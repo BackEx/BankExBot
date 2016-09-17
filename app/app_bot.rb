@@ -2,7 +2,7 @@ require_relative 'bot_base'
 
 class AppBot < BotBase
   def command_start
-    reply 'Введите /offer для публикации предложения'
+    reply "Введите /offer для публикации предложения. #{AppVersion}"
   end
 
   def command_offer
