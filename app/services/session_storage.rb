@@ -30,31 +30,31 @@ class SessionStorage
   end
 
   def get_state
-    get 'state'
+    redis.get key(:state)
   end
 
   def set_state(state)
-    set 'state', state
+    redis.set key(:state), state
+  end
+
+  def clear_state
+    redis.del key(:state)
   end
 
   def set_offer_attribute(attribute, value)
-    redis.hset NS+'offer', attribute, value
+    redis.hset key(:offer), attribute, value
   end
 
   def get_offer
-    redis.hgetall NS+'offer'
+    redis.hgetall key(:offer)
   end
 
   private
 
   attr_reader :chat_id
 
-  def set(key, data)
-    redis.set NS + key, data
-  end
-
-  def get(key)
-    redis.get NS + key
+  def key(value)
+    [NS, chat_id, value].join(':')
   end
 
   def redis

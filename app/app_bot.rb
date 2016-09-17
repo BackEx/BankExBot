@@ -6,6 +6,20 @@ class AppBot < BotBase
     reply "Введите /offer для публикации предложения. #{AppVersion}"
   end
 
+  def command_test
+    rm = Telegrammer::DataTypes::ReplyKeyboardMarkup.new(
+      keyboard: [['/Опубликовать']],
+      one_time_keyboard: false
+    )
+
+    client.send_message chat_id: message.chat.id, text: 'test', reply_markup: rm
+  end
+
+  def command_Опубликовать
+    reply 'Опубликовал'
+    session_storage.clear_state
+  end
+
   def command_offer
     reply 'Введите заголовок объявления'
     session_storage.set_state SessionStorage::STATE_NEW_OFFER_TITLE
