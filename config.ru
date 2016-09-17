@@ -2,6 +2,8 @@ require 'bundler'
 Bundler.require(:default)
 require 'sinatra/base'
 
+bot = Telegrammer::Bot.new ENV['TELEGRAM_TOKEN']
+
 class Root < Sinatra::Base
   get '/' do
     STDERR.puts 'works'
@@ -18,11 +20,11 @@ class Root < Sinatra::Base
     )
     STDERR.puts "update: #{update}"
     STDERR.puts "params: #{params}"
+    bot.send_message(chat_id: update.message.chat.id, text: "You said: #{update.message.text}")
+
     'Ok'
   end
 end
-
-bot = Telegrammer::Bot.new ENV['TELEGRAM_TOKEN']
 
 # use Root
 run Root
