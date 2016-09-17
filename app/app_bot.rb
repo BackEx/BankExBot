@@ -69,7 +69,7 @@ class AppBot < BotBase
       one_time_keyboard: true
     )
 
-    text = "Объявление: #{offer_text}. Публикуем?"
+    text = "У нас получилось следующее объявление.\n---\n#{offer_text}\n---\nПубликуем?"
     client.send_message chat_id: message.chat.id, text: text, reply_markup: rm
   end
 

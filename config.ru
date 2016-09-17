@@ -9,6 +9,8 @@ require_relative './app/services/session_storage'
 
 I18n.config.available_locales = :en
 
+STDERR.puts "Start #{AppVersion}"
+
 class Root < Sinatra::Base
   get '/' do
     STDERR.puts 'works'
