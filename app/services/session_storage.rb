@@ -5,12 +5,14 @@ class SessionStorage
   STATE_NEW_OFFER_DESCRIPTION = 'new_offer_desc'
   STATE_NEW_OFFER_PRICE       = 'new_offer_price'
   STATE_NEW_OFFER_TAGS        = 'new_offer_tags'
+  STATE_NEW_OFFER_PUBLICATE   = 'new_offer_publicate'
 
   STATES = [
     STATE_NEW_OFFER_TITLE,
     STATE_NEW_OFFER_DESCRIPTION,
     STATE_NEW_OFFER_PRICE,
-    STATE_NEW_OFFER_TAGS
+    STATE_NEW_OFFER_TAGS,
+    STATE_NEW_OFFER_PUBLICATE
   ]
 
   def initialize(chat_id)

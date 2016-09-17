@@ -41,7 +41,7 @@ class BotBase
 
   def reply(text)
     log "reply: #{text}"
-    client.send_message(chat_id: message.chat.id, text: text)
+    client.send_message(chat_id: message.chat.id, text: text || 'no_message')
   end
 
   def log(msg)

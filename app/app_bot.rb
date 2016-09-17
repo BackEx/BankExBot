@@ -51,4 +51,8 @@ class AppBot < BotBase
     session_storage.set_next_state
     session_storage.set_offer_attribute :tags, tags.join(',')
   end
+
+  def state_new_offer_publicate
+    reply "Публикуем?"
+  end
 end
