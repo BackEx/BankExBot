@@ -19,7 +19,7 @@ class Root < Sinatra::Base
       message: payload[:message]
     )
 
-    MyBot.send_message(chat_id: update.message.chat.id, text: "You said: #{update.message.text}")
+    MyBot.send_message(chat_id: update.chat.id, text: "You said: #{update.text}")
 
     'Ok'
   end
