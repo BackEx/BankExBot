@@ -1,4 +1,5 @@
 # require 'telegram'
+# gem 'telegram-webhooks'
 Telegram.token = ENV['TELEGRAM_TOKEN']
 class App < Bot
   on '/start' do |update|
