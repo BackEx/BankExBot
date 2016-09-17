@@ -2,6 +2,7 @@ class SessionStorage
   NS = 'sessions:'
 
   STATE_NEW_OFFER_TITLE       = 'new_offer_title'
+  STATE_NEW_OFFER_PHOTO       = 'new_offer_photo'
   STATE_NEW_OFFER_DESCRIPTION = 'new_offer_desc'
   STATE_NEW_OFFER_PRICE       = 'new_offer_price'
   STATE_NEW_OFFER_TAGS        = 'new_offer_tags'
@@ -9,6 +10,7 @@ class SessionStorage
 
   STATES = [
     STATE_NEW_OFFER_TITLE,
+    STATE_NEW_OFFER_PHOTO,
     STATE_NEW_OFFER_DESCRIPTION,
     STATE_NEW_OFFER_PRICE,
     STATE_NEW_OFFER_TAGS,

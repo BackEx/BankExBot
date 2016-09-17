@@ -50,9 +50,11 @@ class BotBase
     client.send_message(
       chat_id: message.chat.id,
       text: text,
+      reply_to_message_id: message.id,
       reply_markup: Telegrammer::DataTypes::ForceReply.new(force_reply: true)
     )
   end
+
   def log(msg)
     STDERR.puts "LOG [chat_id:#{message.chat.id}]: #{msg}"
   end
@@ -76,6 +78,14 @@ class BotBase
   end
 
   def client
-    Telegrammer::Bot.new ENV['TELEGRAM_TOKEN']
+    Telegrammer::Bot.new token
+  end
+
+  def token
+    ENV['TELEGRAM_TOKEN']
+  end
+
+  def generate_file_url(file_path)
+    "https://api.telegram.org/file/bot#{token}/#{file_path}"
   end
 end

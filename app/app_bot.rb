@@ -35,14 +35,29 @@ class AppBot < BotBase
   end
 
   def state_new_offer_title
-    in_reply "Установлен заголовок: '#{message.text}'. Введите описание."
+    in_reply "Установлен заголовок: '#{message.text}'. Загрузите фото."
 
     session_storage.set_next_state
     session_storage.set_offer_attribute :title, message.text
   end
 
+  def command_photo
+    state_new_offer_photo
+  end
+
+  def state_new_offer_photo
+    photo = generate_file_url message.photo[0]
+    if photo
+      in_reply "Фото загружено. Напишите описание"
+      session_storage.set_next_state
+      session_storage.set_offer_attribute :photo_url, generate_file_url(message.photo[0].file_path)
+    else
+      in_reply "Загрузите именно изображение"
+    end
+  end
+
   def state_new_offer_desc
-    in_reply "Установлено описание: '#{message.text}'. Введите цену."
+    in_reply "Описание установлено: '#{message.text}'. Укажите цену"
     session_storage.set_next_state
     session_storage.set_offer_attribute :description, message.text
   end
