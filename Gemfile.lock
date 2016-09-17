@@ -1,0 +1,15 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rack (1.6.4)
+    telegram-webhooks (0.1.1)
+      rack (~> 1.6.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  telegram-webhooks
+
+BUNDLED WITH
+   1.12.5
