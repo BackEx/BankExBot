@@ -19,6 +19,7 @@ class SessionStorage
 
   def next_state
     index = STATES.index get_state
+    return nil if index.nil?
     STATES[index + 1]
   end
 
