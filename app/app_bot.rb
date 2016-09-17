@@ -28,7 +28,8 @@ class AppBot < BotBase
       offer: offer,
       state: session_storage.get_state,
       next_state: session_storage.next_state,
-      from: message.from.to_h
+      from: message.from.to_h,
+      version: AppVersion
     }
     reply data.to_s
   end
@@ -59,7 +60,7 @@ class AppBot < BotBase
   end
 
   def state_new_offer_publicate
-    reply "Публикуем?"
+    publicate?
   end
 
   def publicate?
