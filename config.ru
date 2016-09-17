@@ -13,7 +13,11 @@ class Root < Sinatra::Base
 end
 
 class App < Bot
-  on :start do |update|
+  on '/start' do |update|
+    STDERR.puts 'start'
+    update.message.chat.reply('Привет! Напиши что хочешь продать')
+  end
+  on 'start' do |update|
     STDERR.puts 'start'
     update.message.chat.reply('Привет! Напиши что хочешь продать')
   end
