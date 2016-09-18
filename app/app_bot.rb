@@ -58,13 +58,11 @@ class AppBot < BotBase
 
   def state_new_offer_desc
     session_storage.set_offer_attribute :description, message.text
-
     next_stage
   end
 
   def state_new_offer_price
-    session_storage.set_offer_attribute :price, parse.text
-
+    session_storage.set_offer_attribute :price, message.text
     next_stage
   end
 
