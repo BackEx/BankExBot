@@ -18,8 +18,7 @@ class BotBase
           STDERR.puts 'responde'
           send state_method
         else
-          reply "Нет обработчика для этого состояния (#{session_storage.get_state})"
-          session_storage.clear_state
+          command_offer
         end
       else
         reply "Нет такой комманды (/#{command}). Попробуй /start"

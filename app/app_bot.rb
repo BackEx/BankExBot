@@ -3,10 +3,26 @@ require_relative 'bot_base'
 require_relative 'publicator'
 
 class AppBot < BotBase
+  BOT_NAME = '@bybybankbot'
+
   PUBLICATE_TEXT = 'Теперь твое предложение добавлено в базу, и миллионы людей по всему миру его увидят.  Когда кто-нибудь из них решит купить твой оффер - в твой Telegram придет запрос от покупателя! Успешной торговли )'
+  WELCOME_TEXT= '"Здравствуйте! Я торговый бот #{BOT_NAME} #{AppVersion}!
+  Ты можешь продать через меня все что хочешь. Просто напиши несколько смарттегов, что у тебя есть, или что ты умеешь делать - и найди своего покупателя.  Сделки регистрируются только в блокчейн записях, и процессятся напрямую через QIWI кошелек. Давай начнем!"'
 
   def command_start
-    reply "Введите /offer для публикации предложения. #{AppVersion}"
+    rm = Telegrammer::DataTypes::ReplyKeyboardMarkup.new(
+      keyboard: [['Создать новый оффер']],
+      one_time_keyboard: true
+    )
+
+    text = WELCOME_TEXT
+    client.send_message chat_id: message.chat.id, text: text, reply_markup: rm
+    session_storage.set_state SessionStorage::STATE_NEW_OFFER_START
+  end
+
+  def command_offer
+    session_storage.set_state SessionStorage::STATE_NEW_OFFER_START
+    stage_reply
   end
 
   def command_publicate
@@ -20,8 +36,8 @@ class AppBot < BotBase
     session_storage.clear_state
   end
 
-  def command_offer
-    session_storage.set_state SessionStorage::STATE_NEW_OFFER_TITLE
+  def state_new_offer_start
+    session_storage.set_next_state
     stage_reply
   end
 
