@@ -1,16 +1,20 @@
 require 'monetize'
 require_relative 'bot_base'
+require_relative 'publicator'
 
 class AppBot < BotBase
   def command_start
     reply "Введите /offer для публикации предложения. #{AppVersion}"
   end
 
-  def command_test
+  def command_publicate
+    command_Опубликовать
   end
 
   def command_Опубликовать
-    reply 'Опубликовал'
+    reply 'Публикую'
+    res = Publicator.new(from: message.from, offer: offer).publicate!
+    reply "Опубликовал: #{res}"
     session_storage.clear_state
   end
 
@@ -19,17 +23,13 @@ class AppBot < BotBase
     session_storage.set_state SessionStorage::STATE_NEW_OFFER_TITLE
   end
 
-  def command_ping
-    reply 'pong'
-  end
-
   def command_debug
     data = {
       offer: offer,
       state: session_storage.get_state,
       next_state: session_storage.next_state,
       from: message.from.to_h,
-      version: AppVersion
+      version: AppVersion.to_s
     }
     reply data.to_s
   end
@@ -41,9 +41,6 @@ class AppBot < BotBase
     session_storage.set_offer_attribute :title, message.text
   end
 
-  def command_photo
-    state_new_offer_photo
-  end
 
   def state_new_offer_photo
     photo = generate_file_url message.photo[0]
