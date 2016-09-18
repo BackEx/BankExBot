@@ -98,7 +98,7 @@ class BotBase
   end
 
   def get_photo_url(photo)
-    if photo['file_path']
+    if photo.is_a?(Telegrammer::DataTypes::Photo) && photo['file_path']
       generate_file_url photo['file_path']
     else
       bot.get_file(file_id: photo.file_id)
