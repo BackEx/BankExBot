@@ -6,8 +6,8 @@ class AppBot < BotBase
   BOT_NAME = '@bybybankbot'
 
   PUBLICATE_TEXT = 'Теперь твое предложение добавлено в базу, и миллионы людей по всему миру его увидят.  Когда кто-нибудь из них решит купить твой оффер - в твой Telegram придет запрос от покупателя! Успешной торговли )'
-  WELCOME_TEXT= '"Здравствуйте! Я торговый бот #{BOT_NAME} #{AppVersion}!
-  Ты можешь продать через меня все что хочешь. Просто напиши несколько смарттегов, что у тебя есть, или что ты умеешь делать - и найди своего покупателя.  Сделки регистрируются только в блокчейн записях, и процессятся напрямую через QIWI кошелек. Давай начнем!"'
+  WELCOME_TEXT= "Здравствуйте! Я торговый бот #{BOT_NAME} #{AppVersion}!
+  Ты можешь продать через меня все что хочешь. Просто напиши несколько смарттегов, что у тебя есть, или что ты умеешь делать - и найди своего покупателя.  Сделки регистрируются только в блокчейн записях, и процессятся напрямую через QIWI кошелек. Давай начнем!"
 
   def command_start
     rm = Telegrammer::DataTypes::ReplyKeyboardMarkup.new(
@@ -51,7 +51,7 @@ class AppBot < BotBase
   def state_new_offer_photo
     photo = generate_file_url message.photo[0]
     if photo
-      session_storage.set_offer_attribute :photo_url, generate_file_url(message.photo[0].file_path)
+      session_storage.set_offer_attribute :photo_url, generate_file_url(photo.file_path)
 
       session_storage.set_next_state
       stage_reply
