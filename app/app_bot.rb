@@ -63,8 +63,7 @@ class AppBot < BotBase
   end
 
   def state_new_offer_price
-    money = Monetize.parse message.text
-    session_storage.set_offer_attribute :price, money.to_f
+    session_storage.set_offer_attribute :price, parse.text
 
     next_stage
   end
@@ -156,5 +155,4 @@ class AppBot < BotBase
     }
     reply data.to_s
   end
-
 end
