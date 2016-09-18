@@ -21,7 +21,7 @@ class AppBot < BotBase
   end
 
   def command_offer
-    in_reply 'Введите заголовок объявления'
+    in_reply next_stage_text
     session_storage.set_state SessionStorage::STATE_NEW_OFFER_TITLE
   end
 
@@ -78,13 +78,14 @@ class AppBot < BotBase
 
   def state_new_offer_location
     session_storage.set_offer_attribute :location, message.text
-    in_reply next_stage_text
+    in_reply_offer_type
 
     session_storage.set_next_state
   end
 
   def state_new_offer_offer_type
     session_storage.set_offer_attribute :offer_type, message.text
+
     in_reply next_stage_text
 
     session_storage.set_next_state
@@ -92,6 +93,22 @@ class AppBot < BotBase
 
   def state_new_offer_publicate
     publicate?
+  end
+
+  #   online-video - онлайн-видео,
+  #   online-audio онлайн-аудио
+  #   online-chat онлайн-чат,
+  #   offline - оффлайн
+
+  def in_reply_offer_type
+    session_storage.set_offer_attribute :offer_type, message.text
+    rm = Telegrammer::DataTypes::ReplyKeyboardMarkup.new(
+      keyboard: [['online-video', 'online-audio'], ['online-chat', 'offline']],
+      one_time_keyboard: true
+    )
+
+    text = SessionStorage::TEXTS[STATE_NEW_OFFER_OFFER_TYPE]
+    client.send_message chat_id: message.chat.id, text: text, reply_markup: rm
   end
 
   def publicate?
