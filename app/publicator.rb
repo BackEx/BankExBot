@@ -12,8 +12,6 @@ class Publicator
   attribute :offer, Hash
 
   def publicate!
-    register!
-
     body = {
       telegram_id: from.id,
       photo_url:   offer['photo_url'],
@@ -34,10 +32,13 @@ class Publicator
     response.body
   end
 
+  # curl -X POST -d '{"telegram_id":104, "telegram_nick": "lolka", "about": "lolka"}' "http://bankex.awa.finance/api/salesman.register"
+
   def register!
     body = {
       telegram_id:   from.id,
-      telegram_nick: from.username
+      telegram_nick: from.username,
+      about: '...'
     }
     body = JSON.generate(body.to_h)
     STDERR.puts body

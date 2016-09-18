@@ -3,6 +3,8 @@ require_relative 'bot_base'
 require_relative 'publicator'
 
 class AppBot < BotBase
+  PUBLICATE_TEXT = 'Теперь твое предложение добавлено в базу, и миллионы людей по всему миру его увидят.  Когда кто-нибудь из них решит купить твой оффер - в твой Telegram придет запрос от покупателя! Успешной торговли )'
+
   def command_start
     reply "Введите /offer для публикации предложения. #{AppVersion}"
   end
@@ -12,7 +14,7 @@ class AppBot < BotBase
   end
 
   def command_Опубликовать
-    reply 'Публикую'
+    reply 'Публикую..'
     res = Publicator.new(from: message.from, offer: offer).publicate!
     reply "Опубликовал: #{res}"
     session_storage.clear_state
@@ -35,12 +37,11 @@ class AppBot < BotBase
   end
 
   def state_new_offer_title
-    in_reply "Установлен заголовок: '#{message.text}'. Загрузите фото."
+    in_reply next_stage_text
 
     session_storage.set_next_state
     session_storage.set_offer_attribute :title, message.text
   end
-
 
   def state_new_offer_photo
     photo = generate_file_url message.photo[0]
@@ -98,5 +99,11 @@ class AppBot < BotBase
 
   def offer
     session_storage.get_offer
+  end
+
+  def next_stage_text
+    state = session_storage.next_state
+    return 'нечего сказать' unless state
+    SessionStorage::TEXTS[state]
   end
 end
