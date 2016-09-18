@@ -73,7 +73,7 @@ class BotBase
   end
 
   def session_storage
-    @session_storage ||= SessionStorage.new(message.chat.id)
+    @session_storage ||= SessionStorage.new(chat_id: message.chat.id, from_id: message.from.id)
   end
 
   def client

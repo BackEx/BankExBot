@@ -1,4 +1,9 @@
 class SessionStorage
+  include Virtus.model
+
+  attribute :chat_id
+  attribute :from_id
+
   NS = 'sessions:'
 
   STATE_NEW_OFFER_START       = 'new_offer_start'
@@ -33,10 +38,6 @@ class SessionStorage
     STATE_NEW_OFFER_PHOTO       => 'Мы будем показывать твой оффер покупателям в виде классной картинки. Отправь картинку, подходящую под твой оффер'
   }
 
-  def initialize(chat_id)
-    @chat_id = chat_id
-  end
-
   def next_state
     index = STATES.index get_state
     return nil if index.nil?
@@ -69,10 +70,8 @@ class SessionStorage
 
   private
 
-  attr_reader :chat_id
-
   def key(value)
-    [NS, chat_id, value].join(':')
+    [NS, chat_id, from_id, value].join(':')
   end
 
   def redis
