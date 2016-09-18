@@ -30,9 +30,11 @@ class AppBot < BotBase
 
   def command_Опубликовать
     reply 'Публикую..'
-    res = Publicator.new(from: message.from, offer: offer).publicate!
-    reply "Опубликовал: #{res}"
+    id = Publicator.new(from: message.from, offer: offer).publicate!
+    reply "Опубликовал. Номер оффера #{id}"
     session_storage.clear_state
+  rescue => err
+    reply "Ошибка при публикации #{err}"
   end
 
   def state_new_offer_start

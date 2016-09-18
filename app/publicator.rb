@@ -30,7 +30,16 @@ class Publicator
       req.headers['Content-Type'] = 'application/json'
       req.body = body
     end
-    response.body
+
+    # {"status":"invalid_param","field":"tags","message":"Argument tags is not str","data":{},"field_problem":"invalid_format"}
+    # {"status":"ok","data":{"id":"57de12e6110adb7d181e180d"}}
+    result = JSON.parse(response.body)
+
+    if result['status'] == 'ok'
+      return result['data']['id']
+    else
+      raise response.body
+    end
   end
 
   # curl -X POST -d '{"telegram_id":104, "telegram_nick": "lolka", "about": "lolka"}' "http://bankex.awa.finance/api/salesman.register"
