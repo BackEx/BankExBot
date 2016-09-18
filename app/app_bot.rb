@@ -98,7 +98,7 @@ class AppBot < BotBase
   def offer_text
     [
       "Заголовок: #{offer['title']}",
-      "Описание: #{offer['descrition']}",
+      "Описание: #{offer['description']}",
       "Местоположение: #{offer['location']}",
       "Вид сделки: #{offer['offer_type']}",
       "Цена: #{offer['price']}",
