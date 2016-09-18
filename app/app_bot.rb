@@ -123,14 +123,9 @@ class AppBot < BotBase
     end
   end
 
-  #   online-video - онлайн-видео,
-  #   online-audio онлайн-аудио
-  #   online-chat онлайн-чат,
-  #   offline - оффлайн
-
   def in_reply_offer_type
     rm = Telegrammer::DataTypes::ReplyKeyboardMarkup.new(
-      keyboard: [['online-video', 'online-audio'], ['online-chat', 'offline']],
+      keyboard: [['online_video', 'online_audio'], ['online_chat', 'offline']],
       one_time_keyboard: true
     )
 
