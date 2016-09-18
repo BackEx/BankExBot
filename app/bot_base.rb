@@ -91,7 +91,7 @@ class BotBase
   def get_photo(message)
     photo = message.photo[0]
     return photo if photo
-    document = message.document[0]
+    document = message.document
     return document if document.mime_type=~/image/
 
     nil
