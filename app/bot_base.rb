@@ -92,7 +92,7 @@ class BotBase
     photo = message.photo[0]
     return photo if photo
     document = message.document
-    return document if document.mime_type=~/image/
+    return document if document && document.mime_type=~/image/
 
     nil
   end
