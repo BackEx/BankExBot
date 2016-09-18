@@ -49,8 +49,8 @@ class BotBase
     client.send_message(
       chat_id: message.chat.id,
       text: text,
-      reply_to_message_id: message.message_id.to_s,
-      reply_markup: Telegrammer::DataTypes::ForceReply.new(force_reply: true)
+      reply_to_message_id: message.message_id.to_s
+      # reply_markup: Telegrammer::DataTypes::ForceReply.new(force_reply: true)
     )
   end
 
