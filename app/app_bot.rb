@@ -46,7 +46,7 @@ class AppBot < BotBase
   def state_new_offer_photo
     photo = generate_file_url message.photo[0]
     if photo
-      in_reply "Фото загружено. Напишите описание"
+      in_reply next_stage_text
       session_storage.set_next_state
       session_storage.set_offer_attribute :photo_url, generate_file_url(message.photo[0].file_path)
     else
@@ -55,23 +55,38 @@ class AppBot < BotBase
   end
 
   def state_new_offer_desc
-    in_reply "Описание установлено: '#{message.text}'. Укажите цену"
+    in_reply next_stage_text
     session_storage.set_next_state
     session_storage.set_offer_attribute :description, message.text
   end
 
   def state_new_offer_price
     money = Monetize.parse message.text
-    in_reply "Установлена цена: '#{money}'. Введите теги через запятую"
-    session_storage.set_next_state
     session_storage.set_offer_attribute :price, money.to_f
+    in_reply next_stage_text
+    session_storage.set_next_state
   end
 
   def state_new_offer_tags
     tags = message.text.split(',')
-    session_storage.set_next_state
     session_storage.set_offer_attribute :tags, tags.join(',')
+
+    session_storage.set_next_state
     publicate?
+  end
+
+  def state_new_offer_location
+    session_storage.set_offer_attribute :location, message.text
+    in_reply next_stage_text
+
+    session_storage.set_next_state
+  end
+
+  def state_new_offer_offer_type
+    session_storage.set_offer_attribute :offer_type, message.text
+    in_reply next_stage_text
+
+    session_storage.set_next_state
   end
 
   def state_new_offer_publicate
