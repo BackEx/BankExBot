@@ -18,7 +18,7 @@ class Publicator
       photo_url:   offer['photo_url'],
       description: offer['description'],
       title:       offer['title'],
-      price:       offer['price'],
+      price:       offer['price'].to_i,
       tags:        tags,
       location:    offer['location'],
       offer_type:  offer['offer_type']
