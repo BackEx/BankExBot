@@ -55,14 +55,16 @@ class AppBot < BotBase
   end
 
   def state_new_offer_desc
+    session_storage.set_offer_attribute :description, message.text
+
     in_reply next_stage_text
     session_storage.set_next_state
-    session_storage.set_offer_attribute :description, message.text
   end
 
   def state_new_offer_price
     money = Monetize.parse message.text
     session_storage.set_offer_attribute :price, money.to_f
+
     in_reply next_stage_text
     session_storage.set_next_state
   end

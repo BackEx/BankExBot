@@ -14,6 +14,7 @@ class Publicator
   def publicate!
     body = {
       telegram_id: from.id,
+      telegram_nick: from.username,
       photo_url:   offer['photo_url'],
       description: offer['description'],
       title:       offer['title'],
