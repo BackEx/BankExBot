@@ -137,7 +137,7 @@ class AppBot < BotBase
       one_time_keyboard: true
     )
 
-    text = SessionStorage::TEXTS[STATE_NEW_OFFER_OFFER_TYPE]
+    text = SessionStorage::TEXTS[SessionStorage::STATE_NEW_OFFER_OFFER_TYPE]
     client.send_message chat_id: message.chat.id, text: text, reply_markup: rm
   end
 
