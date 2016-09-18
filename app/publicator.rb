@@ -19,7 +19,7 @@ class Publicator
       description: offer['description'],
       title:       offer['title'],
       price:       offer['price'].to_i,
-      tags:        tags,
+      tags:        offer['tags'],
       location:    offer['location'],
       offer_type:  offer['offer_type']
     }
