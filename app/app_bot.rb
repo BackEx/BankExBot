@@ -74,7 +74,6 @@ class AppBot < BotBase
     session_storage.set_offer_attribute :tags, tags.join(',')
 
     session_storage.set_next_state
-    publicate?
   end
 
   def state_new_offer_location
@@ -121,6 +120,11 @@ class AppBot < BotBase
   def next_stage_text
     state = session_storage.next_state
     return 'нечего сказать' unless state
-    SessionStorage::TEXTS[state]
+
+    if state == SessionStorage::STATE_NEW_OFFER_PUBLICATE
+      publicate?
+    else
+      SessionStorage::TEXTS[state]
+    end
   end
 end

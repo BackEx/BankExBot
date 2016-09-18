@@ -26,7 +26,7 @@ class Publicator
     body = JSON.generate(body.to_h)
     STDERR.puts body
     response = connection.post do |req|
-      req.url '/api/salesman.register'
+      req.url '/api/offer.publish'
       req.headers['Content-Type'] = 'application/json'
       req.body = body
     end
@@ -44,7 +44,7 @@ class Publicator
     body = JSON.generate(body.to_h)
     STDERR.puts body
     connection.post do |req|
-      req.url '/api/offer'
+      req.url '/api/salesman.register'
       req.headers['Content-Type'] = 'application/json'
       req.body = body
     end
