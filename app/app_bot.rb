@@ -51,6 +51,7 @@ class AppBot < BotBase
   def state_new_offer_photo
     photo = generate_file_url message.photo[0]
     if photo
+      STDERR.puts photo
       session_storage.set_offer_attribute :photo_url, generate_file_url(photo.file_path)
 
       session_storage.set_next_state
