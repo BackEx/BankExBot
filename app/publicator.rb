@@ -19,7 +19,7 @@ class Publicator
       description: offer['description'],
       title:       offer['title'],
       price:       offer['price'],
-      tags:        offer['tags'],
+      tags:        tags,
       location:    offer['location'],
       offer_type:  offer['offer_type']
     }
@@ -51,6 +51,10 @@ class Publicator
   end
 
   private
+
+  def tags
+    offer['tags'].split(',').map(&:strip)
+  end
 
   def connection
     @_connection = Faraday.new(url: URL) do |faraday|
