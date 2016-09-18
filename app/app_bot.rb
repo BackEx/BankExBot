@@ -48,10 +48,9 @@ class AppBot < BotBase
   end
 
   def state_new_offer_photo
-    photo = message.photo[0]
-    file_path = photo['file_path'] if photo
-    if file_path
-      session_storage.set_offer_attribute :photo_url, generate_file_url(file_path)
+    photo = get_photo(message)
+    if photo
+      session_storage.set_offer_attribute :photo_url, get_photo_url(photo)
       next_stage
     else
       in_reply "Загрузите именно изображение"

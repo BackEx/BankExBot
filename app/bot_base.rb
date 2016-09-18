@@ -87,4 +87,21 @@ class BotBase
   def generate_file_url(file_path)
     "https://api.telegram.org/file/bot#{token}/#{file_path}"
   end
+
+  def get_photo(message)
+    photo = message.photo[0]
+    return photo if photo
+    document = message.document[0]
+    return document if document.mime_type=~/image/
+
+    nil
+  end
+
+  def get_photo_url(photo)
+    if photo['file_path']
+      generate_file_url photo['file_path']
+    else
+      bot.get_file(file_id: photo.file_id)
+    end
+  end
 end
