@@ -21,34 +21,24 @@ class AppBot < BotBase
   end
 
   def command_offer
-    in_reply next_stage_text
     session_storage.set_state SessionStorage::STATE_NEW_OFFER_TITLE
-  end
-
-  def command_debug
-    data = {
-      offer: offer,
-      state: session_storage.get_state,
-      next_state: session_storage.next_state,
-      from: message.from.to_h,
-      version: AppVersion.to_s
-    }
-    reply data.to_s
+    stage_reply
   end
 
   def state_new_offer_title
-    in_reply next_stage_text
+    session_storage.set_offer_attribute :title, message.text
 
     session_storage.set_next_state
-    session_storage.set_offer_attribute :title, message.text
+    stage_reply
   end
 
   def state_new_offer_photo
     photo = generate_file_url message.photo[0]
     if photo
-      in_reply next_stage_text
-      session_storage.set_next_state
       session_storage.set_offer_attribute :photo_url, generate_file_url(message.photo[0].file_path)
+
+      session_storage.set_next_state
+      stage_reply
     else
       in_reply "Загрузите именно изображение"
     end
@@ -57,38 +47,34 @@ class AppBot < BotBase
   def state_new_offer_desc
     session_storage.set_offer_attribute :description, message.text
 
-    in_reply next_stage_text
     session_storage.set_next_state
+    stage_reply
   end
 
   def state_new_offer_price
     money = Monetize.parse message.text
     session_storage.set_offer_attribute :price, money.to_f
 
-    in_reply next_stage_text
     session_storage.set_next_state
+    stage_reply
   end
 
   def state_new_offer_tags
-    tags = message.text.split(',')
-    session_storage.set_offer_attribute :tags, tags.join(',')
-
+    session_storage.set_offer_attribute :tags, message.text
     session_storage.set_next_state
+    stage_reply
   end
 
   def state_new_offer_location
     session_storage.set_offer_attribute :location, message.text
-    in_reply_offer_type
-
     session_storage.set_next_state
+    stage_reply
   end
 
   def state_new_offer_offer_type
     session_storage.set_offer_attribute :offer_type, message.text
-
-    in_reply next_stage_text
-
     session_storage.set_next_state
+    stage_reply
   end
 
   def state_new_offer_publicate
@@ -134,14 +120,28 @@ class AppBot < BotBase
     session_storage.get_offer
   end
 
-  def next_stage_text
-    state = session_storage.next_state
+  def stage_reply
+    state = session_storage.get_state
     return 'нечего сказать' unless state
 
     if state == SessionStorage::STATE_NEW_OFFER_PUBLICATE
       publicate?
+    elsif state == SessionStorage::STATE_NEW_OFFER_OFFER_TYPE
+      in_reply_offer_type
     else
-      SessionStorage::TEXTS[state]
+      in_reply SessionStorage::TEXTS[state]
     end
   end
+
+  def command_debug
+    data = {
+      offer: offer,
+      state: session_storage.get_state,
+      next_state: session_storage.next_state,
+      from: message.from.to_h,
+      version: AppVersion.to_s
+    }
+    reply data.to_s
+  end
+
 end
